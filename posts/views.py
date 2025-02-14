@@ -1,8 +1,24 @@
-from django.views.generic import TemplateView
+from django.views.generic import (
+    ListView,
+    CreateView,
+    DetailView
+)
 
-class HomePageView(TemplateView):
-                   template_name = "pages/home.html"
+from .models import Post
+from django.urls import reverse
 
-class AboutPageView(TemplateView):
-    template_name = "pages/about.html"
+class PostListView(ListView):
+    template_name = "posts//list.html"
+    model = Post  
 
+class PostDetailView(DetailView):
+    template_name = "posts/detail.html"
+    model = Post  
+
+class PostCreateView(CreateView):  
+    template_name = "posts/new.html"
+    model = Post
+    fields = ["title", "subtitle", "body"]  
+    
+    def get_success_url(self):  
+        return reverse("list")

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts{% endblock title %}
+
+{% block content %}
+<h1>Blog Posts</h1>
+
+{% if post_list %}
+    {% for post in post_list %}
+        <article class="mb-4">
+            <h2>{{ post.title }}</h2>
+            {% if post.subtitle %}
+                <h3>{{ post.subtitle }}</h3>
+            {% endif %}
+            <p>{{ post.body|truncatewords:50 }}</p>
+            <a href="{% url 'detail' post.pk %}" class="btn btn-primary">Read More</a>
+        </article>
+    {% endfor %}
+{% else %}
+    <p>No posts available.</p>
+{% endif %}
+
+<a href="{% url 'new' %}" class="btn btn-success">Create New Post</a>
+{% endblock content %}
